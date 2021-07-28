@@ -1,10 +1,19 @@
-import React, { FC, memo, useCallback, useEffect, useState } from 'react'
+import React, {
+  FC,
+  memo,
+  useCallback,
+  useEffect,
+  useState,
+  Fragment,
+} from 'react'
 import Page from '@/components/page'
 import ReactECharts from 'echarts-for-react'
 import useSearch from '@/hooks/useSearch'
-import { get } from '@/utils/request'
-import { Table, Pagination } from 'antd'
-import { ITicket, IFund } from '../type'
+import { get, post } from '@/utils/request'
+import { Table, Pagination, Select } from 'antd'
+
+import { getDifferentOne } from '@/utils/common'
+import { ITicket, IFund, ITicketGroup } from '../type'
 import './index.scss'
 
 const Index: FC<any> = () => {
@@ -14,6 +23,11 @@ const Index: FC<any> = () => {
   const { page = '1' } = search
   const [data, setData] = useState<ITicket[]>([])
   const [loading, setLoading] = useState<boolean>(false)
+  const [groups, setGroups] = useState<ITicketGroup[]>([])
+  const getGroups = useCallback(async () => {
+    const result = await get<{ list: ITicketGroup[] }>('/ticket/fund/group')
+    setGroups(result.list)
+  }, [])
   const [pagination, setPagination] = useState<{
     current: number
     pageSize: number
@@ -44,29 +58,68 @@ const Index: FC<any> = () => {
     setLoading(false)
   }, [search])
   useEffect(() => {
+    getGroups()
+  }, [])
+  useEffect(() => {
     getList()
   }, [search])
-
   const columns = [
     {
       title: '基金名称',
       dataIndex: 'name',
       key: 'name',
       render: (text: string, record: ITicket) => {
+        const fund = record.fund
         return (
-          <p className='page_fund_sort-tabl-tb'>
-            {text}({record.code})
-          </p>
+          <Fragment>
+            <p className='cms-table_tb_100'>
+              {text}({record.code})
+            </p>
+            <p className='cms-table_tb_100'>{fund[fund.length - 1].fund}</p>
+          </Fragment>
         )
       },
     },
     {
-      title: '基金持仓',
-      dataIndex: 'fund',
-      key: 'fund',
-      render: (fund: IFund[]) => {
+      title: '板块',
+      dataIndex: 'ticketGroups',
+      key: 'ticketGroups',
+      render: (
+        ticketGroups: ITicketGroup[],
+        _record: ITicket,
+        index: number
+      ) => {
+        const ticketGroupsId = ticketGroups.map((item) => item.id)
         return (
-          <p className='page_fund_sort-tabl-tb'>{fund[fund.length - 1].fund}</p>
+          <div className='cms-table_tb_250'>
+            <Select
+              bordered={false}
+              mode='multiple'
+              placeholder='Inserted are removed'
+              value={ticketGroupsId}
+              onChange={async (ids) => {
+                setLoading(true)
+                const id = getDifferentOne([...ids], [...ticketGroupsId])
+                await post('/ticket/fund/save', {
+                  groupId: id,
+                  ticketId: _record.id,
+                  type: ticketGroupsId.length < ids.length ? 1 : 0,
+                })
+                data[index].ticketGroups = groups.filter(
+                  (item) => ids.indexOf(item.id) !== -1
+                )
+                setData([...data])
+                setLoading(false)
+              }}
+              style={{ width: '100%' }}
+            >
+              {groups.map((item) => (
+                <Select.Option key={item.id} value={item.id}>
+                  {item.name}
+                </Select.Option>
+              ))}
+            </Select>
+          </div>
         )
       },
     },
@@ -136,7 +189,7 @@ const Index: FC<any> = () => {
         dataSource={data}
         loading={loading}
       />
-      <div className='right'>
+      <div className='pagination-right'>
         <Pagination
           defaultCurrent={1}
           showSizeChanger={false}

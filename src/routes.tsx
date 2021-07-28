@@ -23,6 +23,11 @@ const routes: IRoute = {
           component: lazy(() => import('@/pages/fund/sort')),
         },
         {
+          path: '/fund/plate',
+          name: '板块列表',
+          component: lazy(() => import('@/pages/fund/plate')),
+        },
+        {
           path: '/fund/option',
           name: '编辑',
           component: lazy(() => import('@/pages/fund/option')),
