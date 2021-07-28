@@ -1,0 +1,19 @@
+
+.pro-page_container {
+  //padding: 20px;
+}
+
+.pro-page_container_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  background: #fff;
+  padding: 0 16px;
+  > div {
+    &:first-child {
+      font-size: 18px;
+      font-weight: 600;
+    }
+  }
+}

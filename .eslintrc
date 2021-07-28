@@ -1,0 +1,41 @@
+{
+  "extends": [
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "prettier/@typescript-eslint",
+    "prettier/react",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "import/prefer-default-export": "off",
+    "taro/this-props-function": 0,
+    "semi": ["warn", "never"],
+    "@typescript-eslint/semi": ["warn", "never"],
+    "quotes": "off",
+    "@typescript-eslint/quotes": ["error", "single"],
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "no-console": [0, { "allow": ["warn", "error"] }],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_" }
+    ],
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/ban-types": 0
+  },
+  "globals": { "CONFIG": true },
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "typescript"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "useJSXTextNode": true,
+    "project": "./tsconfig.json"
+  },
+  "env": {
+    "jest": true
+  }
+}

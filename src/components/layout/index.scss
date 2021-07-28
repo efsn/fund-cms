@@ -1,0 +1,163 @@
+
+.pro-layout_container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+
+
+}
+
+.pro-layout_menu {
+  width: 208px;
+  height: 100%;
+  background-color: #001529;
+  transition: width 0.25s linear;
+
+
+  &.pro-layout_menu_hide {
+    text-align: center;
+    width: 48px;
+
+    .pro-layout_menu_title {
+      display: none;
+    }
+  }
+
+
+}
+
+.pro-layout_menu_title {
+  white-space: nowrap;
+}
+
+.pro-layout_slide_children {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+
+}
+
+.pro-layout_slide_top {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 32px;
+  cursor: pointer;
+
+  img {
+    width: 32px;
+    height: 32px;
+    margin-right: 6px;
+  }
+}
+
+.pro-layout_slide_menu {
+  flex: 1 1 0%;
+  overflow: hidden auto;
+}
+
+.pro-layout_slide_menu_ul {
+  padding: 0;
+  color: hsla(0, 0%, 100%, .65);
+  list-style: none;
+}
+
+.pro-layout_slide_menu_ul_01 {
+  padding-left: 10px;
+}
+
+.pro-layout_slide_menu_li {
+  height: 40px;
+  //line-height: 40px;
+  //padding-left: 16px;
+
+  //background-color: #1890ff;
+}
+
+.pro-layout_slide_menu_li_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+
+  &:hover {
+    color: #fff;
+  }
+
+  i {
+    padding-right: 16px;
+    transform: scaleY(0.75);
+
+    span {
+      transition: transform .25s linear;
+    }
+  }
+
+  &.pro-layout_slide_menu_li_item_action {
+    i span {
+      transform: rotate(180deg);
+      transform-origin: 50% 50%;
+    }
+  }
+}
+
+.pro-layout_slide_menu_li_title {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+
+  &.pro-layout_slide_menu_li_title_01 {
+    padding-left: 20px;
+  }
+
+  > p {
+    line-height: 1.4;
+    padding-left: 6px;
+  }
+}
+
+.pro-layout_slide_bottom {
+  cursor: pointer;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+  color: #999;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 32px;
+
+  svg {
+    margin-right: 6px;
+  }
+}
+
+.pro-layout_content {
+  flex: 1;
+  height: 100%;
+  overflow: hidden auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: #f0f2f5;
+}
+
+.pro-layout_content_header {
+  padding: 0px;
+  height: 48px;
+  line-height: 48px;
+  width: 100%;
+  z-index: 19;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+}
