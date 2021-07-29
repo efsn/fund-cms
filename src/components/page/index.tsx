@@ -15,10 +15,11 @@ export const PageHead: FC<{
 
 const Index: FC<PropsWithChildren<{
   head?: () => ReactNode | ReactNode
+  footer?: () => ReactNode | ReactNode
   title?: string
   padding?: number
   option?: () => ReactNode | ReactNode
-}>> = ({ children, head, title, option, padding = 20 }) => {
+}>> = ({ children, head, title, option, padding = 20, footer }) => {
   return (
     <section className='pro-page_container'>
       {head ? (
@@ -27,10 +28,17 @@ const Index: FC<PropsWithChildren<{
         ) : (
           head
         )
-      ) : (
+      ) : title ? (
         <PageHead title={title} option={option} />
+      ) : (
+        ''
       )}
-      <div style={{ padding: `${padding}px` }}>{children}</div>
+      <div className='pro-page_content' style={{ padding: `${padding}px` }}>
+        {children}
+      </div>
+      <div>
+        {footer ? (typeof footer === 'function' ? footer() : footer) : ''}
+      </div>
     </section>
   )
 }

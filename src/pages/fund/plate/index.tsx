@@ -2,10 +2,11 @@ import React, { FC, memo, useCallback, useEffect, useState } from 'react'
 import Page from '@/components/page'
 import useSearch from '@/hooks/useSearch'
 import { get, post } from '@/utils/request'
-import { Table, Pagination, Button, Drawer, Form, Input } from 'antd'
+import { Table, Button, Drawer, Form, Input } from 'antd'
 import { PlusOutlined, EditOutlined } from '@ant-design/icons'
 
 import './index.scss'
+import ReactECharts from 'echarts-for-react'
 
 const Index: FC<any> = () => {
   const [form] = Form.useForm()
@@ -20,15 +21,7 @@ const Index: FC<any> = () => {
     id: number
     name: string
   } | null>(null)
-  const [pagination, setPagination] = useState<{
-    current: number
-    pageSize: number
-    total: number
-  }>({
-    current: parseInt(page) - 1,
-    pageSize: 0,
-    total: 0,
-  })
+
   const getList = useCallback(async () => {
     setLoading(true)
     const result = await get<{
@@ -40,12 +33,7 @@ const Index: FC<any> = () => {
     }>('/ticket/fund/group', {
       page: parseInt(page) - 1,
     })
-    const { page: current, list, total, pageSize } = result
-    setPagination({
-      current: parseInt(current) + 1,
-      pageSize: parseInt(pageSize),
-      total: parseInt(total),
-    })
+    const { list } = result
     setData(list)
     setLoading(false)
   }, [search])
@@ -74,6 +62,58 @@ const Index: FC<any> = () => {
       key: 'name',
       render: (text: string) => {
         return <p className='page_fund_sort-tabl-tb'>{text}</p>
+      },
+    },
+    {
+      title: '基金持仓',
+      dataIndex: 'funds',
+      key: 'funds',
+      render: (funds: any) => {
+        const data = Object.values(funds).map((item: any[]) => {
+          item = item.slice(0, 20)
+          return item.reduce((a, b) => a + parseInt(b.fund), 0)
+        })
+        const option15 = {
+          grid: {
+            left: '1%',
+            right: '4%',
+            bottom: '0%',
+            containLabel: true,
+          },
+          tooltip: {
+            trigger: 'axis',
+            formatter: function (params: any) {
+              return `${params[0].value}(${funds[params[0].name].length})`
+            },
+          },
+          color: ['red', '#CD3333'],
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: Object.keys(funds),
+          },
+          yAxis: {
+            type: 'value',
+            min: Math.min(...data),
+            max: Math.max(...data),
+          },
+        }
+        return (
+          <div className='page_fund_sort-table'>
+            <ReactECharts
+              style={{ height: '250px', width: '45%' }}
+              option={{
+                ...option15,
+                series: [
+                  {
+                    type: 'line',
+                    data,
+                  },
+                ],
+              }}
+            />
+          </div>
+        )
       },
     },
     {
@@ -123,19 +163,6 @@ const Index: FC<any> = () => {
         dataSource={data}
         loading={loading}
       />
-      <div className='pagination-right'>
-        <Pagination
-          defaultCurrent={1}
-          showSizeChanger={false}
-          defaultPageSize={30}
-          onChange={(page) => {
-            setSearch({
-              page,
-            })
-          }}
-          {...pagination}
-        />
-      </div>
       <Drawer
         title={option === 'edit' ? '修改板块' : '添加板块'}
         placement='right'

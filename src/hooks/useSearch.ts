@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { parse, stringify } from 'query-string'
 import { useHistory } from 'react-router'
 
@@ -12,6 +12,10 @@ const useSearch = <T = any>(): [T, (_: { [key: string]: any }) => void] => {
     const path = `${pathname}${!!serialized ? `?${serialized}` : ''}`
     history.push(path)
   }
+
+  useEffect(() => {
+    setSearch(parse(window.location.search))
+  }, [history.location.search])
 
   return [search, change]
 }

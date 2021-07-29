@@ -148,16 +148,22 @@ const Index: FC<any> = () => {
             type: 'value',
           },
         }
+        const data = fund.slice(-24).map((item) => item.fund)
         return (
           <div className='page_fund_sort-table'>
             <ReactECharts
               style={{ height: '250px', width: '45%' }}
               option={{
                 ...option15,
+                yAxis: {
+                  type: 'value',
+                  min: Math.min(...data),
+                  max: Math.max(...data),
+                },
                 series: [
                   {
                     type: 'line',
-                    data: fund.slice(-24).map((item) => item.fund),
+                    data,
                   },
                 ],
               }}
@@ -182,26 +188,30 @@ const Index: FC<any> = () => {
   ]
 
   return (
-    <Page title={'当日基金排名'}>
+    <Page
+      // title={'当日基金排名'}
+      footer={() => (
+        <div className='pagination-right'>
+          <Pagination
+            defaultCurrent={1}
+            showSizeChanger={false}
+            defaultPageSize={30}
+            onChange={(page) => {
+              setSearch({
+                page,
+              })
+            }}
+            {...pagination}
+          />
+        </div>
+      )}
+    >
       <Table
         pagination={false}
         columns={columns}
         dataSource={data}
         loading={loading}
       />
-      <div className='pagination-right'>
-        <Pagination
-          defaultCurrent={1}
-          showSizeChanger={false}
-          defaultPageSize={30}
-          onChange={(page) => {
-            setSearch({
-              page,
-            })
-          }}
-          {...pagination}
-        />
-      </div>
     </Page>
   )
 }

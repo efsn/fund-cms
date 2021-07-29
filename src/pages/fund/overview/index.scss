@@ -1,0 +1,13 @@
+.page_fund_sort-table {
+  height: 250px;
+  display: flex;
+  padding: 0 20px;
+  > div {
+    flex: 1;
+    &:last-child {
+      margin-left: 15px;
+    }
+  }
+}
+
+
