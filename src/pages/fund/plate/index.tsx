@@ -154,7 +154,7 @@ const Index: FC<any> = () => {
           <Form.Item name='name' label='板块名称' rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          <Form.Item>
+          <Form.Item className='cms-mt_20'>
             <Button type='primary' htmlType='submit'>
               {option === 'edit' ? '修改板块' : '添加板块'}
             </Button>
