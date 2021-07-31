@@ -28,7 +28,7 @@ const devConfig = {
   devServer: {
     open: true,
     hot: true,
-    port: 3002,
+    port: 8888,
     historyApiFallback: true,
     host: '0.0.0.0',
     proxy: {

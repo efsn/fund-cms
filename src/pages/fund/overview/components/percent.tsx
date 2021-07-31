@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState, Fragment } from 'react'
+import React, { FC, useCallback, useEffect, useState } from 'react'
 import { get } from '@/utils/request'
 import ReactECharts from 'echarts-for-react'
 import { Row, Col } from 'antd'
