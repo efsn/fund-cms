@@ -8,6 +8,8 @@ import React, {
 } from 'react'
 import Page from '@/components/page'
 import Title from '@/components/title'
+import Total from './components/total'
+import Percent from './components/percent'
 import moment from 'moment'
 import { Row, Col } from 'antd'
 
@@ -21,9 +23,15 @@ const Index: FC<any> = () => {
     <Page title={`信息概览(${today})`}>
       <Row gutter={20}>
         <Col span={12}>
-          <Title title={''}>sdf</Title>
+          <Title title={'前150总额'}>
+            <Total />
+          </Title>
         </Col>
-        <Col span={12}>1</Col>
+        <Col span={12}>
+          <Title title={'前200板块比例(总额/个数)'}>
+            <Percent />
+          </Title>
+        </Col>
       </Row>
     </Page>
   )

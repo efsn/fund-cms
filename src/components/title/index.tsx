@@ -7,7 +7,7 @@ const Index: FC<PropsWithChildren<{
   return (
     <section className='pro-title_container'>
       <div className='pro-title_title'>{title}</div>
-      <div>{children}</div>
+      <div className='pro-title_content'>{children}</div>
     </section>
   )
 }
