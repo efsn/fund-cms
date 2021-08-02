@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./src/pages/home/index.tsx"],"names":[],"mappings":"2FAAA,gCAKe,0BAHG,WAChB,OAAO","file":"js/7.e7158.chunk.js","sourcesContent":["import React, { FC, memo } from 'react'\n\nconst Index: FC = () => {\n  return <div>home</div>\n}\nexport default memo(Index)\n"],"sourceRoot":""}

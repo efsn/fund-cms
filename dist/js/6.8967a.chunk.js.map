@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./src/pages/fund/option/index.tsx"],"names":[],"mappings":"2FAAA,gCAKe,0BAHG,WAChB,OAAO","file":"js/6.8967a.chunk.js","sourcesContent":["import React, { FC, memo } from 'react'\n\nconst Index: FC = () => {\n  return <div>option</div>\n}\nexport default memo(Index)\n"],"sourceRoot":""}
