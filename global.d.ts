@@ -8,6 +8,8 @@ declare module '*.png' {
   export default content
 }
 
+declare const PRODUCTION: boolean
+
 declare module '*.jpg' {
   const content: any
   export default content

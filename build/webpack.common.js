@@ -20,7 +20,7 @@ module.exports = {
     path: envConfig.build.outputPath,
   },
   resolve: {
-    extensions: ['.js', '.ts', '.tsx', 'less'],
+    extensions: ['.js', '.ts', '.tsx', 'scss'],
     alias: {
       config: getRootPath('config', `${process.env.NODE_ENV}.env` || 'dev.env'),
       '@ant-design/icons/lib/dist$': path.resolve('src/icons.ts'),

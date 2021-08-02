@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 
 import { ConfigProvider, Empty } from 'antd'
 import zh_CN from 'antd/es/locale-provider/zh_CN'
@@ -11,7 +11,7 @@ import Layout from '@/components/layout'
 import App from '@/App'
 import '@/styles/index.less'
 
-import './index.less'
+import './index.scss'
 
 const antdConfig = {
   autoInsertSpaceInButton: false,
@@ -23,11 +23,11 @@ const antdConfig = {
 
 ReactDOM.render(
   <ConfigProvider {...antdConfig}>
-    <BrowserRouter basename={'/'}>
+    <HashRouter basename={'/'}>
       <Layout route={routes}>
         <App />
       </Layout>
-    </BrowserRouter>
+    </HashRouter>
   </ConfigProvider>,
   document.getElementById('root')
 )

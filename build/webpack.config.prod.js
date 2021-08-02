@@ -1,5 +1,5 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'prod'
-
+const webpack= require('webpack')
 const path = require('path')
 const fs = require('fs')
 const merge = require('webpack-merge')
@@ -9,13 +9,9 @@ const TerserWebpackPlugin = require('terser-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const lessToJs = require('less-vars-to-js')
 
 const resolve = (...p) => path.resolve(__dirname, '../', ...p)
 
-const antdThemeVariables = lessToJs(
-  fs.readFileSync(resolve('src/styles/variables.less'), 'utf8')
-)
 
 const commonConfig = require('./webpack.common')
 const config = require(`../config/${process.env.NODE_ENV}.env`)
@@ -30,6 +26,9 @@ const prodConfig = {
   },
   plugins: [
     new CleanWebpackPlugin(),
+    new webpack.DefinePlugin({
+      PRODUCTION: JSON.stringify(true),
+    }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].[contenthash:5].css',
       chunkFilename: 'css/[name].[contenthash:5].chuck.css',
@@ -68,7 +67,7 @@ const prodConfig = {
   module: {
     rules: [
       {
-        test: /\.(less|css)?$/,
+        test: /\.(less|scss|css)?$/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
@@ -88,10 +87,14 @@ const prodConfig = {
           },
           'postcss-loader',
           {
+            loader: 'sass-loader',
+            options: {}
+          },
+          {
             loader: 'less-loader',
             options: {
               javascriptEnabled: true,
-              modifyVars: antdThemeVariables,
+              // modifyVars: antdThemeVariables,
             },
           },
         ],

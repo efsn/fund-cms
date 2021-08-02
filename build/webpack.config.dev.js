@@ -7,6 +7,7 @@ const merge = require('webpack-merge')
 // const antdThemeVariables = lessToJs(
 //   fs.readFileSync(path.join(__dirname, '../src/styles/variables.less'), 'utf8')
 // )
+// import 'sass-loader'
 
 const commonConfig = require('./webpack.common')
 
@@ -14,6 +15,7 @@ const getProxyTargetByEnv = (env) => {
   switch (env) {
     default:
       return 'http://127.0.0.1:3000'
+    // return 'http://42.192.156.205:3000'
   }
 }
 
@@ -28,7 +30,7 @@ const devConfig = {
   devServer: {
     open: true,
     hot: true,
-    port: 8888,
+    port: 3002,
     historyApiFallback: true,
     host: '0.0.0.0',
     proxy: {
@@ -75,13 +77,14 @@ const devConfig = {
             },
           },
           'postcss-loader',
-          {
-            loader: 'less-loader',
-            options: {
-              javascriptEnabled: true,
-              // modifyVars: antdThemeVariables,
-            },
-          },
+          'sass-loader'
+          // {
+          //   loader: 'less-loader',
+          //   options: {
+          //     javascriptEnabled: true,
+          //     // modifyVars: antdThemeVariables,
+          //   },
+          // },
         ],
       },
     ],
