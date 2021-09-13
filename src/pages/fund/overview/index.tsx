@@ -10,6 +10,8 @@ import Page from '@/components/page'
 import Title from '@/components/title'
 import Total from './components/total'
 import Percent from './components/percent'
+import Volume from './components/volume'
+import Mlf from './components/mlf'
 import moment from 'moment'
 import { Row, Col } from 'antd'
 
@@ -21,6 +23,19 @@ const Index: FC<any> = () => {
 
   return (
     <Page title={`信息概览(${today})`}>
+      <div className='page_overview-title'>
+        <h5>基础信息</h5>
+        <Row gutter={20}>
+          <Col span={6}>
+            <Volume />
+          </Col>
+          <Col span={6}>
+            <Mlf />
+          </Col>
+          <Col span={6}>3</Col>
+          <Col span={6}>3</Col>
+        </Row>
+      </div>
       <Row gutter={20}>
         <Col span={12}>
           <Title title={'前150总额'}>

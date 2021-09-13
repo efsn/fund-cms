@@ -2,10 +2,41 @@
   height: 250px;
   display: flex;
   padding: 0 20px;
+
   > div {
     flex: 1;
+
     &:last-child {
       margin-left: 15px;
+    }
+  }
+}
+
+.page_overview-title {
+  padding: 15px;
+  border-radius: 5px;
+  background: #fff;
+  margin-bottom: 15px;
+
+  h5 {
+    position: relative;
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    padding-left: 4px;
+    margin-left: 4px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+
+    &:before {
+      position: absolute;
+      content: "";
+      width: 4px;
+      left: -4px;
+      height: 16px;
+      bottom: 4px;
+      background-color: #f40009;
+      margin-right: 4px;
     }
   }
 }

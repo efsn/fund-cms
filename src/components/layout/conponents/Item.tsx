@@ -10,6 +10,7 @@ const ItemLi: FC<
     left?: number
   }
 > = ({ path, name, routes, icon, component, son, left = 16 }) => {
+  if (routes) routes = routes.filter((item) => !item.hide)
   const history = useHistory()
   const { pathname = '' } = history.location
   const [showSon, setShowSun] = useState<boolean>(pathname.indexOf(path) !== -1)
@@ -18,10 +19,10 @@ const ItemLi: FC<
       <div
         onClick={() => {
           if (!!component) history.push(path)
-          setShowSun(true)
+          setShowSun(!showSon)
         }}
         className={cls('pro-layout_slide_menu_li_item', {
-          // ['pro-layout_slide_menu_li_item_action']: showSon,
+          ['pro-layout_slide_menu_li_item_action']: showSon,
         })}
       >
         <div
@@ -31,7 +32,7 @@ const ItemLi: FC<
           {!son && icon}
           <p>{name}</p>
         </div>
-        {routes && (
+        {routes && routes[0] && (
           <i
             onClick={(event) => {
               event.preventDefault()
@@ -44,7 +45,7 @@ const ItemLi: FC<
           </i>
         )}
       </div>
-      {routes && showSon && (
+      {routes && routes[0] && showSon && (
         <Item routes={routes} left={left + 10} son={true} />
       )}
     </li>

@@ -4,6 +4,7 @@ export interface Route {
   name: string
   access?: string
   exact?: boolean
+  hide?: boolean
   routes?: Route[]
   icon?: React.ReactNode | ''
   component: LazyExoticComponent<any>

@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { HashRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 import { ConfigProvider, Empty } from 'antd'
 import zh_CN from 'antd/es/locale-provider/zh_CN'
@@ -23,11 +23,11 @@ const antdConfig = {
 
 ReactDOM.render(
   <ConfigProvider {...antdConfig}>
-    <HashRouter basename={'/'}>
+    <BrowserRouter basename={'/'}>
       <Layout route={routes}>
         <App />
       </Layout>
-    </HashRouter>
+    </BrowserRouter>
   </ConfigProvider>,
   document.getElementById('root')
 )

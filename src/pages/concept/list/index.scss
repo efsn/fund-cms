@@ -1,0 +1,21 @@
+.page_fund_sort-table {
+  height: 250px;
+  display: flex;
+  padding: 0 20px;
+  > div {
+    flex: 1;
+    &:last-child {
+      margin-left: 15px;
+    }
+  }
+}
+
+.page_concept_sort-table_head{
+  position: absolute;
+  right: 0;
+  height: 48px;
+}
+
+.page_fund_sort-tabl-tb{
+  width: 150px;
+}

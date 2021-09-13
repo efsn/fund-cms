@@ -77,14 +77,14 @@ const devConfig = {
             },
           },
           'postcss-loader',
-          'sass-loader'
-          // {
-          //   loader: 'less-loader',
-          //   options: {
-          //     javascriptEnabled: true,
-          //     // modifyVars: antdThemeVariables,
-          //   },
-          // },
+          'sass-loader',
+          {
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+              // modifyVars: antdThemeVariables,
+            },
+          },
         ],
       },
     ],

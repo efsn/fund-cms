@@ -128,6 +128,7 @@ const Index: FC<any> = () => {
       dataIndex: 'fund',
       key: 'fund',
       render: (fund: IFund[]) => {
+        fund = fund.slice(-30)
         const option15 = {
           grid: {
             left: '1%',
@@ -142,13 +143,16 @@ const Index: FC<any> = () => {
           xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: fund.map((item) => new Date(item.date).getDate()),
+            data: fund.map((item) => {
+              const current = new Date(item.date)
+              return `${current.getMonth() + 1}/${current.getDate()}`
+            }),
           },
           yAxis: {
             type: 'value',
           },
         }
-        const data = fund.slice(-24).map((item) => item.fund)
+        const data = fund.map((item) => item.fund)
         return (
           <div className='page_fund_sort-table'>
             <ReactECharts
@@ -157,7 +161,7 @@ const Index: FC<any> = () => {
                 ...option15,
                 yAxis: {
                   type: 'value',
-                  min: Math.min(...data),
+                  min: 0,
                   max: Math.max(...data),
                 },
                 series: [
@@ -175,7 +179,7 @@ const Index: FC<any> = () => {
                 series: [
                   {
                     type: 'line',
-                    data: fund.slice(-24).map((item) => item.sort + 1),
+                    data: fund.map((item) => item.sort + 1),
                   },
                 ],
               }}

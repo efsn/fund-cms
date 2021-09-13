@@ -4,12 +4,14 @@ import useSearch from '@/hooks/useSearch'
 import { get, post } from '@/utils/request'
 import { Table, Button, Drawer, Form, Input } from 'antd'
 import { PlusOutlined, EditOutlined } from '@ant-design/icons'
-
+import storage, { set } from '@/utils/storages'
 import './index.scss'
 import ReactECharts from 'echarts-for-react'
+import { useHistory } from 'react-router'
 
 const Index: FC<any> = () => {
   const [form] = Form.useForm()
+  const history = useHistory()
   const [search, setSearch] = useSearch<{
     page: string
   }>()
@@ -60,8 +62,18 @@ const Index: FC<any> = () => {
       title: '板块名称',
       dataIndex: 'name',
       key: 'name',
-      render: (text: string) => {
-        return <p className='page_fund_sort-tabl-tb'>{text}</p>
+      render: (text: string, item: any) => {
+        return (
+          <p
+            onClick={() => {
+              set(storage.FUND_PLATE_DETAIL_INFO, item)
+              history.push('/fund/plate/detail')
+            }}
+            className='page_fund_sort-tabl-tb cms-pointer'
+          >
+            {text}({item.tickets.length})
+          </p>
+        )
       },
     },
     {

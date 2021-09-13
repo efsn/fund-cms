@@ -1,0 +1,40 @@
+.page_overview-com-item {
+  display: flex;
+  padding: 10px 0;
+  position: relative;
+
+  &.page_overview-com-item-warn {
+
+    p:last-child {
+      color: darkorchid !important;
+    }
+  }
+
+  &.page_overview-com-item-error {
+
+    p:last-child {
+      color: #f81f27 !important;
+    }
+
+  }
+
+  p {
+    color: #666;
+    font-size: 14px;
+
+    &:last-child {
+      color: #000;
+    }
+  }
+}
+
+.page_overview-com-item-tips {
+  position: absolute;
+  right: 15px;
+  top: -10px;
+  color: #f40009 !important;
+  border: 1px solid;
+  padding: 0 5px;
+  border-radius: 12px;
+  font-size: 12px !important;
+}
